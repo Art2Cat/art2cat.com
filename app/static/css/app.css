@@ -1,0 +1,96 @@
+#content {
+    color: white;
+    text-align: center;
+    text-shadow: 5px 0 5px black;
+    padding-top: 20%;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#game {
+    display: none;
+}
+
+#switch {
+    text-shadow: 5px 0 5px gray;
+}
+
+#dynamicHR {
+    border-top: 1px solid;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#subHead {
+    text-align: center;
+    display: inline-block;
+    *display: inline;
+}
+
+body {
+    background-size: contain;
+    /*background: url('../images/background.jpg') center;*/
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 48px;
+}
+
+canvas {
+    background: rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+.bottom {
+    text-align: center;
+    bottom: 5px;
+}
+
+.body {
+    padding-bottom: 70px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: auto;
+    background-color: #f5f5f5;
+    margin-top: -150px; /* negative value of footer height */
+
+    padding-top: 20px;
+}
+
+.social:hover {
+     -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+     -o-transform: scale(1.1);
+ }
+ .social {
+     -webkit-transform: scale(0.8);
+     /* Browser Variations: */
+
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+ }
+
+/*
+    Multicoloured Hover Variations
+*/
+
+ #social-gh:hover {
+     color: black;
+ }
+ #social-tw:hover {
+     color: #4099FF;
+ }
+ #social-gp:hover {
+     color: #d34836;
+ }
+ #social-em:hover {
+     color: #f39c12;
+ }

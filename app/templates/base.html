@@ -1,0 +1,110 @@
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %}lang="en"{% endblock %}
+{% block title %}Art2Cat{% endblock %}
+{% block html %}
+    <html>
+    {% block head %}
+        <head>
+            {% block metas %}
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+            {% endblock %}
+            {% block scripts %}
+                <script src="https://use.fontawesome.com/e3a8280a4a.js"></script>
+                {{ moment.include_jquery() }}
+                {{ moment.include_moment() }}
+                {{ super() }}
+            {% endblock %}
+
+            {% block styles %}
+                {{ super() }}
+                <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" sizes="16x16 32x32"
+                      type="image/x-icon">
+                <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+                <link rel="stylesheet"
+                      href="{{ url_for('static', filename='./css/app.css') }}">
+                      href="{{ url_for('static', filename='./css/footer.css') }}">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+            {% endblock %}
+
+        </head>
+    {% endblock %}
+    {% block body %}
+        <body>
+        {% block navbar %}
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Art2Cat</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+
+                            <li><a href="/">Home</a></li>
+                            <li><a href="https://i.art2cat.com/">Blog</a></li>
+                            <li><a href="http://i.art2cat.com/about/">About Me</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/login">Sign In</a></li>
+                            <li><a href="#">Sign Up</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        {% endblock %}
+        {% block content %}
+
+            {% block page_content %}
+
+            {% endblock %}
+        {% endblock %}
+
+        <!--Footer-->
+        <footer class="page-footer text-center center-block" id="footer">
+            <!--Footer Links-->
+            <div class="container">
+                <div class="row py-3 d-flex align-items-center">
+                    <!--Social buttons-->
+                    <div class="social-section text-center text-md-left">
+                        <a href="https://gibhub.com/art2cat"><i id="social-gh"
+                                                                class="fa fa-github-square fa-3x social"></i></a>
+                        <a href="https://twitter.com/bootsnipp"><i id="social-tw"
+                                                                   class="fa fa-twitter-square fa-3x social"></i></a>
+                        <a href="https://plus.google.com/+Bootsnipp-page"><i id="social-gp"
+                                                                             class="fa fa-google-plus-square fa-3x social"></i></a>
+                        <a href="mailto:bootsnipp@gmail.com"><i id="social-em"
+                                                                class="fa fa-envelope-square fa-3x social"></i></a>
+                    </div>
+                    <!--Copyright-->
+                    <span class="text-center text-md-left grey-text">
+                            © 2017 Copyright: <a href="https://www.art2cat.com"><strong> Art2Cat.com</strong></a>
+                        </span>
+                    <!--/.Copyright-->
+                    <span> Time: {{ moment(current_time).format('LLL') }}.</span>
+                </div>
+            </div>
+        </footer>
+
+        <!--/.Footer-->
+        </body>
+    {% endblock %}
+    </html>
+{% endblock %}
