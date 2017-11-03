@@ -1,4 +1,3 @@
-from datetime import datetime
 
 from flask import render_template, flash, redirect, session
 from app import app
@@ -7,8 +6,7 @@ from app.form import NameForm, LoginForm
 
 @app.route('/')
 def index():
-    print(datetime.utcnow())
-    return render_template('index.html', current_time=datetime.utcnow())
+    return render_template('index.html')
 
 
 @app.route('/hello', methods=['GET', 'POST'])
