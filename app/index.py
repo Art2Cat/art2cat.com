@@ -1,12 +1,12 @@
 
 from flask import render_template, flash, redirect, session
-from app import app, flatpages, POST_DIR
+from app import app
 from app.form import NameForm, LoginForm
 
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/hello', methods=['GET', 'POST'])
@@ -31,18 +31,6 @@ def login():
                            title='Sign In',
                            form=form,
                            providers=app.config['OPENID_PROVIDERS'])
-
-@app.route("/")
-def posts():
-    posts = [p for p in flatpages if p.path.startswith(POST_DIR)]
-    # posts.sort(key=lambda item:item['date'], reverse=False)
-    return render_template('index.html', posts=posts)
-
-@app.route('/posts/<name>/')
-def post(name):
-    path = '{}/{}'.format(POST_DIR, name)
-    post = flatpages.get_or_404(path)
-    return render_template('post.html', post=post)
 
 
 @app.errorhandler(404)

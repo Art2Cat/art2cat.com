@@ -1,9 +1,4 @@
-import sys
-
-from app import app, freezer
+from app import app
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "build":
-        freezer.freeze()
-    else:
-        app.run(debug=True)
+    app.run(debug=True)
