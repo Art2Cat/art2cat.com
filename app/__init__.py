@@ -13,5 +13,6 @@ app.config.from_object(__name__)
 app.config.from_object('config')
 
 from app import index
+
 app.register_error_handler(404, index.page_not_found)
 app.register_error_handler(500, index.internal_server_error)
