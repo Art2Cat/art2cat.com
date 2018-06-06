@@ -7,7 +7,7 @@ FLATPAGES_EXTENSION = '.md'
 FLATPAGES_ROOT = 'content'
 POST_DIR = 'posts'
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 Bootstrap(app)
 app.config.from_object(__name__)
 app.config.from_object('config')

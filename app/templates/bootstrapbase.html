@@ -1,16 +1,25 @@
 {% extends "bootstrap/base.html" %}
-{% block head %}
-{{ super() }}
-<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
-      type="image/x-icon">
-<link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
-      type="image/x-icon">
-{% endblock %}
 {% block metas %}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
-{% block title %}Art2Cat{% endblock %}
+{% block head %}
+{{ super() }}
+{% block styles %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
+      type="image/x-icon">
+<!--<link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" sizes="16x16 32x32"-->
+      <!--type="image/x-icon">-->
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='./css/app.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='./css/footer.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+{% endblock %}
+{% endblock %}
+
+<!--{% block title %}Art2Cat{% endblock %}-->
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -39,7 +48,36 @@
     </div>
 </div>
 {% endblock %}
+{% block footer %}
+{{ super() }}
+<footer id="myFooter">
+    <div class="container">
+        <ul>
+            <li><a href="#">Company Information</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Terms of service</a></li>
+        </ul>
+        <p class="footer-copyright">© 2016 Copyright Art2Cat</p>
+    </div>
+    <div class="footer-social">
+        <a href="https://gibhub.com/art2cat" class="social-icons">
+            <i class="fa fa-github"></i>
+        </a>
+        <a href="https://twitter.com/Navis2AC" class="social-icons">
+            <i
+                    class="fa fa-twitter"></i>
+        </a>
+        <a href="https://plus.google.com/+YIMingHuang" class="social-icons">
+            <i class="fa fa-google-plus"></i>
+        </a>
+        <a href="mailto:yiming.whz@gmail.com" class="social-icons">
+            <i class="fa fa-envelope"></i>
+        </a>
+    </div>
+</footer>
+{% endblock%}
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript" src="static/js/index.js"></script>
+<script type="text/javascript" href="{{ url_for('static', filename='./js/index.js') }}"></script>
 {% endblock %}
