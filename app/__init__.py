@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_pagedown import PageDown
 from flask_bootstrap import Bootstrap
 
 DEBUG = True
@@ -9,6 +10,7 @@ POST_DIR = 'posts'
 
 app = Flask(__name__, template_folder='templates')
 Bootstrap(app)
+pagedown = PageDown(app)
 app.config.from_object(__name__)
 app.config.from_object('config')
 
@@ -16,3 +18,4 @@ from app import index
 
 app.register_error_handler(404, index.page_not_found)
 app.register_error_handler(500, index.internal_server_error)
+

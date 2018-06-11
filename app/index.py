@@ -1,6 +1,5 @@
 import requests
 from datetime import datetime
-
 import json
 from flask import render_template, flash, redirect, session
 
@@ -14,23 +13,31 @@ def index():
     params = {
         'api_key': '{API_KEY}',
     }
+
     r = requests.get('http://loclhost:7444/api/post-service/all/{PROJECT_TOKEN}', params=params)
     return render_template('index.html', movies=json.loads(r.text)['posts'])
 
 
-@app.route('/admin/write-post', methods=['PUT', 'POST'])
+@app.route('/admin/write-post', methods=['GET', 'POST'])
 def write_post():
-    post = Post('test', 'test', datetime.now(), 'test', [])
+    post = Post('test', 'test', datetime.now(),datetime.now(), 'test', [])
     form = PostForm()
     if form.validate_on_submit():
+        print("done")
         post.title = form.title
         post.article = form.article
         post.tags = form.tags
-    params = json.dumps(post, indent=4)
-    r = requests.put('http://localhost:7444/api/admin-service/write/{post}', params=params)
-    if r.status_code != 200:
-        r.raise_for_status()
-    post = json.loads(r.text, encoding='utf-8')
+        posts = json.dumps(post)
+        session['posts'] = posts
+        return redirect(url_for('/post', posts=posts))
+    else:
+        return render_template('write-post.html', form=form)
+
+
+@app.route('/post', methods= ['GET', 'POST'])
+def posts():
+    post=request.args['post']
+    posts=session['posts']
     return render_template('post.html', post=post)
 
 

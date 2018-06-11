@@ -7,3 +7,8 @@ OPENID_PROVIDERS = [
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
+
+MYSQL_DATABSE_USER = 'rscat'
+MYSQL_DATABSE_PASSWORD ='fuck_MySQL.13'
+MYSQL_DATABSE_DB = 'dev'
+MYSQL_DATABSE_HOST = '104.225.238.185'
