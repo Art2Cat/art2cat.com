@@ -1,21 +1,31 @@
 from flask import Flask
-from flask_pagedown import PageDown
+from config import config
 from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_moment import Moment
 
 DEBUG = True
-FLATPAGES_AUTO_RELOAD = DEBUG
-FLATPAGES_EXTENSION = '.md'
-FLATPAGES_ROOT = 'content'
-POST_DIR = 'posts'
 
-app = Flask(__name__, template_folder='templates')
-Bootstrap(app)
-pagedown = PageDown(app)
-app.config.from_object(__name__)
-app.config.from_object('config')
+bootstrap = Bootstrap()
+db = SQLAlchemy()
+moment = Moment()
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'admin.login'
 
-from app import index
 
-app.register_error_handler(404, index.page_not_found)
-app.register_error_handler(500, index.internal_server_error)
-
+def create_app(config_name):
+    app = Flask(__name__, template_folder='templates')
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
+    bootstrap.init_app(app)
+    moment.init_app(app)
+    db.init_app(app)
+    login_manager.init_app(app)
+    # 附加路由和自定义的错误页面
+    from .main import main as main_blueprint
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(admin_blueprint)
+    return app

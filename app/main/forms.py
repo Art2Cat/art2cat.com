@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm as BaseForm
 from wtforms import StringField, SubmitField, BooleanField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired
-from flask_pagedown.fields import PageDownField
 
 class MultiCheckboxField(SelectMultipleField):
     #widgets = widgets.ListWidget(prefix_label=False)
@@ -20,7 +19,7 @@ class LoginForm(BaseForm):
 
 class PostForm(BaseForm):
     title = StringField('title')
-    article = PageDownField('Enter your content')
+    article = StringField('Enter your content')
     tag_list =['test','test1']
     tags = MultiCheckboxField('Label', choices=[(x,x) for x in tag_list])
     submit = SubmitField('Submit')

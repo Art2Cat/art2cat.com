@@ -1,0 +1,14 @@
+Flask==1.0.2
+Flask-Bootstrap==3.3.7.1
+Flask-Moment==0.6.0
+Flask-Script==2.0.6
+Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
+Jinja2==2.10
+MarkupSafe==1.0
+requests==2.18.4
+SQLAlchemy==1.2.8
+urllib3==1.22
+Werkzeug==0.14.1
+wrapt==1.10.11
+WTForms==2.2.1
