@@ -1,12 +1,10 @@
 import json
-from datetime import datetime
 
 import requests
 from flask import render_template, flash, redirect, session, request, url_for
 
-from . import main
-from .forms import NameForm, LoginForm, PostForm
-from ..models import Post
+from app.main import main
+from app.main.forms import NameForm, LoginForm
 
 
 @main.route('/')
@@ -17,9 +15,6 @@ def index():
 
     r = requests.get('http://loclhost:7444/api/post-service/all/{PROJECT_TOKEN}', params=params)
     return render_template('index.html', movies=json.loads(r.text)['posts'])
-
-
-
 
 
 @main.route('/post', methods=['GET', 'POST'])
@@ -51,6 +46,3 @@ def login():
                            title='Sign In',
                            form=form,
                            providers=main.config['OPENID_PROVIDERS'])
-
-
-

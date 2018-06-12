@@ -1,20 +1,19 @@
-{% extends "bootstrap/base.html" %}
-{% block metas %}
+{% extends "bootstrap/base.html" %} {% block metas %}
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1"> {% endblock %}
 {% block head %}
 {{ super() }}
+{% block script %}
+{{ super() }}
+<script src="https://use.fontawesome.com/e3a8280a4a.js"></script>
+{% endblock %}
 {% block styles %}
 {{ super() }}
-<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
-      type="image/x-icon">
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
 <!--<link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" sizes="16x16 32x32"-->
 <!--type="image/x-icon">-->
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='./css/app.css') }}">
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='./css/footer.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/app.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/footer.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
 {% endblock %}
 {% endblock %}
@@ -24,8 +23,7 @@
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle"
-                    data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -58,10 +56,18 @@
 <footer id="myFooter">
     <div class="container">
         <ul>
-            <li><a href="#">Company Information</a></li>
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="#">Terms of service</a></li>
+            <li>
+                <a href="#">Company Information</a>
+            </li>
+            <li>
+                <a href="#">Contact us</a>
+            </li>
+            <li>
+                <a href="#">Reviews</a>
+            </li>
+            <li>
+                <a href="#">Terms of service</a>
+            </li>
         </ul>
         <p class="footer-copyright">© 2016 Copyright Art2Cat</p>
     </div>
@@ -70,8 +76,7 @@
             <i class="fa fa-github" aria-hidden="true"></i>Art2Cat
         </a>
         <a href="https://twitter.com/Navis2AC" title="Twitter">
-            <i
-                    class="fa fa-twitter"></i>Twitter
+            <i class="fa fa-twitter"></i>Twitter
         </a>
         <a href="https://plus.google.com/+YIMingHuang" title="Google+">
             <i class="fa fa-google-plus"></i>YiMing Huang

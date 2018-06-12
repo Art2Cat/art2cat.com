@@ -6,16 +6,16 @@ from werkzeug.utils import redirect
 
 from app.main.forms import PostForm
 from app.models import Post
-from . import admin
+from app.admin import admin
 
 
-@admin.route('/')
+@admin.route('/', methods=['GET'])
 @login_required
-def admin():
+def admin_view():
     return
 
 
-@admin.route('/login')
+@admin.route('/login', methods=['POST'])
 def login():
     return render_template('login.html')
 
