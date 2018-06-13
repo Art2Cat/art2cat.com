@@ -9,15 +9,10 @@ from app.main.forms import NameForm, LoginForm
 
 @main.route('/')
 def index():
-    params = {
-        'api_key': '{API_KEY}',
-    }
-
-    r = requests.get('http://loclhost:7444/api/post-service/all/{PROJECT_TOKEN}', params=params)
-    return render_template('index.html', movies=json.loads(r.text)['posts'])
+    return render_template('index.html')
 
 
-@main.route('/post', methods=['GET', 'POST'])
+@main.route('/blog/', methods=['GET', 'POST'])
 def posts():
     post = request.args['post']
     posts = session['posts']
@@ -33,16 +28,3 @@ def hello():
         form.name.data = ''
     return render_template('hello.html', form=form, name=name)
 
-
-@main.route('/admin', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for OpenID="%s", remember_me=%s' %
-              (form.openid.data, str(form.remember_me.data)))
-        session['name'] = form.name.data
-        return redirect('/')
-    return render_template('login.html',
-                           title='Sign In',
-                           form=form,
-                           providers=main.config['OPENID_PROVIDERS'])

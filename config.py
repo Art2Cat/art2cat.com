@@ -5,7 +5,7 @@ class Config():
     SECRET_KEY = 'you-will-never-guess'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     FLASK_ADMIN = os.environ.get('FLASK_ADMIN')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     @staticmethod
     def init_app(app):
         pass
@@ -13,7 +13,7 @@ class Config():
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_COMMIT_ON_TEARDOWN = os.environ.get('DEV_DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = "mysql://rscat:fuck_MySQL.13@104.225.238.185/dev"
 
 
 class TestingConfig(Config):

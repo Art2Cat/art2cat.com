@@ -5,7 +5,8 @@ from app import create_app, db
 from app.models import User, Post
 from flask_script import Manager, Shell
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+#os.getenv('FLASK_CONFIG') or
+app = create_app('default')
 manager = Manager(app)
 
 
