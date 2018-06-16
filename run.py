@@ -4,9 +4,16 @@ import os
 from app import create_app, db
 from app.models import User, Post
 from flask_script import Manager, Shell
+from dotenv import load_dotenv
+from pathlib import Path
 
-#os.getenv('FLASK_CONFIG') or
-app = create_app('default')
+load_dotenv(verbose=True)
+env_path = Path.home() / 'rorschach-config' / 'rorscat' / 'dev.env'
+
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path, verbose=True)
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
 
