@@ -2,14 +2,14 @@ import json
 
 from flask import render_template, session, url_for, flash, request
 from flask_login import login_required, login_user, logout_user, current_user
+from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
 from app import db
 from app.email import send_email
-from app.main.forms import PostForm
 from app.admin.forms import LoginForm, RegistrationForm, PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm, \
-    ChangePasswordForm
-from app.models import Post, User
+    ChangePasswordForm, PostForm
+from app.models import Post, User, Permission
 from app.admin import admin
 
 
@@ -53,21 +53,45 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@admin.route('/write-post', methods=['GET', 'POST'])
+@admin.route('/create-post', methods=['GET', 'POST'])
 @login_required
-def write_post():
+def create_post():
     post = Post()
     form = PostForm()
+    # form.set_tag_list(['test', 'test'])
+
     if form.validate_on_submit():
         print("done")
-        post.title = form.title
-        post.article = form.article
-        post.tags = form.tags
-        posts = json.dumps(post)
-        session['posts'] = posts
-        return redirect(url_for('/post', posts=posts))
+        post.body = form.body.data
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been created.')
+        return redirect(url_for('main.post', id=post.id))
+        # post.tags = form.tags
+        # posts = json.dumps(post)
+        # session['posts'] = posts
+        # return redirect(url_for('/post', posts=posts))
+
     else:
-        return render_template('admin/write-post.html', form=form)
+        return render_template('admin/create_post.html', form=form)
+
+
+@admin.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author and not current_user.can(Permission.ADMIN) and \
+            not current_user.can(Permission.MODERATE):
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.body = form.body.data
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been updated.')
+        return redirect(url_for('.post', id=post.id))
+    form.body.data = post.body
+    return render_template('admin/edit_post.html', form=form)
 
 
 @admin.route('/change-password', methods=['GET', 'POST'])

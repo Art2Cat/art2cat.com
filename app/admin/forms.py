@@ -1,9 +1,15 @@
+from flask_pagedown.fields import PageDownField
 from flask_wtf import FlaskForm as BaseForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+    SelectMultipleField, widgets
 from wtforms.validators import Length, Email, DataRequired, Regexp, EqualTo
 from wtforms import ValidationError
 
 from app.models import User
+
+
+class MultiCheckboxField(SelectMultipleField):
+    option_widget = widgets.CheckboxInput()
 
 
 class LoginForm(BaseForm):
@@ -68,3 +74,14 @@ class ChangeEmailForm(BaseForm):
     def validate_email(field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
+
+
+class PostForm(BaseForm):
+    body = PageDownField("Enter content", validators=[DataRequired()])
+    submit = SubmitField('Submit')
+    # tag_list = []
+    # tags = None
+
+    # def set_tag_list(self, tag_list):
+    #     self.tag_list = tag_list
+    #     self.tags = MultiCheckboxField('Label', choices=[(x, x) for x in tag_list])

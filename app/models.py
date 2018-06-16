@@ -1,4 +1,4 @@
-import markdown as markdown
+from markdown import markdown
 from datetime import datetime
 
 import bleach as bleach
@@ -13,8 +13,6 @@ from . import login_manager
 
 
 class Permission:
-    FOLLOW = 1
-    COMMENT = 2
     WRITE = 4
     MODERATE = 8
     ADMIN = 16
@@ -36,11 +34,9 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
-            'Moderator': [Permission.FOLLOW, Permission.COMMENT,
-                          Permission.WRITE, Permission.MODERATE],
-            'Administrator': [Permission.FOLLOW, Permission.COMMENT,
-                              Permission.WRITE, Permission.MODERATE,
+            'User': [Permission.WRITE],
+            'Moderator': [Permission.WRITE, Permission.MODERATE],
+            'Administrator': [Permission.WRITE, Permission.MODERATE,
                               Permission.ADMIN],
         }
         default_role = 'User'
@@ -93,7 +89,7 @@ class User(UserMixin, db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.email == 'test@test.com':
+            if self.email == current_app.config['ADMIN']:
                 self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -178,9 +174,6 @@ class Post(db.Model):
             'body': self.body,
             'body_html': self.body_html,
             'timestamp': self.timestamp,
-            'author_url': url_for('api.get_user', id=self.author_id),
-            'comments_url': url_for('api.get_post_comments', id=self.id),
-            'comment_count': self.comments.count()
         }
         return json_post
 
@@ -190,5 +183,6 @@ class Post(db.Model):
         if body is None or body == '':
             raise ValidationError('post does not have a body')
         return Post(body=body)
+
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
