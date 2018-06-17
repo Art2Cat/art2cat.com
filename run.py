@@ -2,7 +2,7 @@
 # encoding=utf-8
 import os
 from app import create_app, db
-from app.models import User, Post
+from app.models import User, Post, Role
 from flask_script import Manager, Shell
 from dotenv import load_dotenv
 from pathlib import Path
@@ -18,7 +18,7 @@ manager = Manager(app)
 
 
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Post=Post)
+    return dict(app=app, db=db, User=User, Post=Post, Role=Role)
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))

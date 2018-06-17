@@ -38,16 +38,22 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://art2cat.com/blog/">Blog</a>
+                    <a class="nav-link" href="{{ url_for('main.blog') }}">Blog</a>
                 </li>
             </ul>
              <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {% if user.avatar is not None %}
+                        <img class="img-rounded profile-thumbnail" src="{{ user.avatar }}">
+                        {% else %}
+                        <img class="img-rounded profile-thumbnail" src="{{ url_for('static', filename = 'favicon.ico') }}">
+                        {% endif %}
                         Account <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('admin.edit-profile') }}">Change Password</a></li>
                         <li><a href="{{ url_for('admin.change_password') }}">Change Password</a></li>
                         <li><a href="{{ url_for('admin.change_email_request') }}">Change Email</a></li>
                         <li><a href="{{ url_for('admin.logout') }}">Log Out</a></li>
@@ -64,42 +70,7 @@
 {% block content %}
 
 {% endblock %}
-{% block footer %}
-{{ super() }}
-<footer id="myFooter">
-    <div class="container">
-        <ul>
-            <li>
-                <a href="#">Company Information</a>
-            </li>
-            <li>
-                <a href="#">Contact us</a>
-            </li>
-            <li>
-                <a href="#">Reviews</a>
-            </li>
-            <li>
-                <a href="#">Terms of service</a>
-            </li>
-        </ul>
-        <p class="footer-copyright">© 2016 Copyright Art2Cat</p>
-    </div>
-    <div class="footer-social">
-        <a href="https://gibhub.com/art2cat" title="Github">
-            <i class="fa fa-github" aria-hidden="true"></i>Art2Cat
-        </a>
-        <a href="https://twitter.com/Navis2AC" title="Twitter">
-            <i class="fa fa-twitter"></i>Twitter
-        </a>
-        <a href="https://plus.google.com/+YIMingHuang" title="Google+">
-            <i class="fa fa-google-plus"></i>YiMing Huang
-        </a>
-        <a href="mailto:yiming.whz@gmail.com">
-            <i class="fa fa-at"></i>Contact
-        </a>
-    </div>
-</footer>
-{% endblock%}
+
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript" href="{{ url_for('static', filename='./js/index.js') }}"></script>
