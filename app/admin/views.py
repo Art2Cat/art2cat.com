@@ -1,6 +1,6 @@
-import json
+from datetime import datetime
 
-from flask import render_template, session, url_for, flash, request, current_app
+from flask import render_template, url_for, flash, request, current_app
 from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
@@ -123,16 +123,12 @@ def create_post():
 
     if form.validate_on_submit():
         print("done")
+        post.title = form.title.data
         post.body = form.body.data
         db.session.add(post)
         db.session.commit()
         flash('The post has been created.')
         return redirect(url_for('main.post', id=post.id))
-        # post.tags = form.tags
-        # posts = json.dumps(post)
-        # session['posts'] = posts
-        # return redirect(url_for('/post', posts=posts))
-
     else:
         return render_template('admin/create_post.html', form=form)
 
@@ -146,7 +142,9 @@ def edit(id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        post.title = form.body.data
         post.body = form.body.data
+        post.edited_by = datetime.now()
         db.session.add(post)
         db.session.commit()
         flash('The post has been updated.')

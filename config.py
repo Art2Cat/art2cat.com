@@ -7,7 +7,7 @@ def get_bool_value(varname):
 
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'bigbigdream,littlelittlebody')
     MAIL_SERVER = os.getenv('MAIL_SERVER')
     MAIL_PORT = int(os.getenv('MAIL_PORT', '587'))
     MAIL_USE_TLS = get_bool_value('MAIL_USE_TLS')
@@ -16,6 +16,7 @@ class Config:
     MAIL_SUBJECT_PREFIX = '[ART2CAT ]'
     MAIL_SENDER = 'ART2CAT Admin <yiming.whz@gmail.com>'
     ADMIN = os.getenv('ADMIN')
+    ADMIN_ID = int(os.getenv('ADMIN_ID', "1"))
     SSL_REDIRECT = get_bool_value('SSL_REDIRECT')
     SQLALCHEMY_TRACK_MODIFICATIONS = get_bool_value('TRACK_MODIFICATIONS')
     SQLALCHEMY_RECORD_QUERIES = get_bool_value('RECORD_QUERIES')

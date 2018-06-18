@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "admin/adminbase.html" %}
 {% import "_macros.html" as macros %}
 
-{% block title %}Flasky - {{ user.username }}{% endblock %}
+{% block title %}Art2Cat - {{ user.username }}{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -32,7 +32,7 @@
     </div>
 </div>
 <h3>Posts by {{ user.username }}</h3>
-{% include '_posts.html' %}
+{% include '../_posts.html' %}
 {% if pagination %}
 <div class="pagination">
     {{ macros.pagination_widget(pagination, '.user', username=user.username) }}

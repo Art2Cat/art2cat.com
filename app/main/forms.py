@@ -11,3 +11,8 @@ class NameForm(BaseForm):
 class LoginForm(BaseForm):
     openid = StringField('openid', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
+
+
+class SearchForm(BaseForm):
+    text = StringField('something', validators=[DataRequired])
+    submit = SubmitField('Search')

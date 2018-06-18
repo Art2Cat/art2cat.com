@@ -173,13 +173,12 @@ def load_user(user_id):
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64))
     body = db.Column(db.Text)
     body_html = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    created_by = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    edited_by = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    def __repr__(self):
-        return '<Post %r, %r>' % (self.title, self.created_date)
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):

@@ -1,7 +1,9 @@
-from flask import render_template, flash, redirect, session, request, url_for, current_app
+from flask import render_template, current_app, request
 from flask_sqlalchemy import get_debug_queries
+
 from app.main import main
-from app.main.forms import NameForm, LoginForm
+from app.main.forms import NameForm
+from app.models import Post, User
 
 
 @main.after_app_request
@@ -22,9 +24,19 @@ def index():
 
 @main.route('/blog/', methods=['GET', 'POST'])
 def posts():
-    post = request.args['post']
-    posts = session['posts']
-    return render_template('post.html', post=post)
+    user = User.query.filter_by(id=current_app.config['ADMIN_ID']).first_or_404()
+    page = request.args.get('page', 1, type=int)
+    pagination = user.posts.order_by(Post.created_by.desc()).paginate(
+        page, per_page=current_app.config['POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('blog.html', posts=posts, pagination=pagination, user=user)
+
+
+@main.route('/search', methods=['GET'])
+def search():
+    # todo add search veiw
+    return None
 
 
 @main.route('/hello', methods=['GET', 'POST'])

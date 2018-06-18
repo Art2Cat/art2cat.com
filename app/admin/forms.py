@@ -75,6 +75,7 @@ class ChangeEmailForm(BaseForm):
 
 
 class PostForm(BaseForm):
+    title = StringField("Enter the title", validators=[DataRequired()])
     body = PageDownField("Enter content", validators=[DataRequired()])
     submit = SubmitField('Submit')
     # tag_list = []
